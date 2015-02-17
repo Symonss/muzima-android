@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
-        >
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.muzima</groupId>
     <artifactId>muzima-android</artifactId>
@@ -63,8 +62,7 @@
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
-            <scope>system</scope>
-            <systemPath>${env.ANDROID_HOME}/platforms/android-21/android.jar</systemPath>
+            <scope>provided</scope>
             <version>4.3</version>
         </dependency>
         <dependency>
@@ -157,8 +155,6 @@
             <groupId>com.muzimaintentmodels</groupId>
             <artifactId>muzima-biometric-intent-models</artifactId>
             <version>0.1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/muzima-biometric-intent-models.jar</systemPath>
         </dependency>
     </dependencies>
 
@@ -167,11 +163,11 @@
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                <!--<version>3.7.0</version>-->
+                <version>3.7.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <sdk>
-                        <platform>17</platform>
+                        <platform>21</platform>
                     </sdk>
                     <!-- Proguard is not skipped by default -->
                     <proguard>
@@ -185,6 +181,43 @@
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.3.1</version>
+                <executions>
+                    <execution>
+                        <id>install biometric-intent-models</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${basedir}/lib/muzima-biometric-intent-models.jar</file>
+                            <groupId>com.muzimaintentmodels</groupId>
+                            <artifactId>muzima-biometric-intent-models</artifactId>
+                            <version>0.1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install android jar</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>/Users/ramanathan/Installs/android-sdk-macosx/platforms/android-21/android.jar</file>
+                            <groupId>com.google.android</groupId>
+                            <artifactId>android</artifactId>
+                            <version>4.3</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
