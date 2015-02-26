@@ -58,17 +58,11 @@ public class PatientJSONMapper {
         Patient patient = new Patient();
         patient.setUuid(paramsMap.get("patient.uuid"));
         patient.setIdentifiers(asList(patientIdentifier(patient.getUuid()), preferredIdentifier(paramsMap)));
-        patient.setPatientFingerprint(patientFingerprint(paramsMap));
+        patient.setFingerprint(paramsMap.get("patient.fingerprint"));
         patient.setNames(asList(personName(paramsMap)));
         patient.setGender(paramsMap.get("patient.sex"));
         patient.setBirthdate(getDate(paramsMap, "patient.birthdate"));
         return patient;
-    }
-
-    private PatientFingerprint patientFingerprint(Map<String, String> paramsMap) {
-        PatientFingerprint patientFingerprint = new PatientFingerprint();
-        patientFingerprint.setFingerprint(paramsMap.get("patient.fingerprint"));
-        return patientFingerprint;
     }
 
     private PatientIdentifier preferredIdentifier(Map<String, String> paramsMap) {
