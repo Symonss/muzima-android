@@ -396,8 +396,12 @@ public class PatientsListActivity extends BroadcastListenerActivity implements A
     }
 
     public void invokeFingerPrintIdentification(PatientModels modelsForIntent) {
-        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-        scanIntegrator.initiateFingerPrintIdentification(modelsForIntent);
+        if (modelsForIntent.getPatientModels().size() > 0) {
+            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+            scanIntegrator.initiateFingerPrintIdentification(modelsForIntent);
+        } else {
+            showDownloadDialog("Alert", "No patients with fingerprint found");
+        }
     }
 
 
